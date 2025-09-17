@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+     <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>DCube Login</title>
+          <style>
+               :root {
+                    --body: #01011a;
+                    --shadow: rgb(0, 255, 247);
+               }
+
+               body {
+                    font-family: Arial, sans-serif;
+                    background: var(--body);
+                    color: aliceblue;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                    overflow: hidden;
+               }
+
+               .login-container {
+                    background: var(--body);
+                    padding: 40px 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 12px 10px var(--shadow);
+                    width: 350px;
+                    max-width: 100%;
+                    text-align: center;
+               }
+
+               .login-container .icon {
+                    font-size: 50px;
+                    color: #fff;
+                    margin-bottom: 15px;
+               }
+
+               .login-container h2 {
+                    margin: 10px 0;
+                    font-weight: bold;
+               }
+
+               .login-container p {
+                    color: #666;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+               }
+
+               .input-group {
+                    text-align: left;
+                    margin-bottom: 20px;
+               }
+
+               .input-group label {
+                    display: block;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                    font-weight: bold;
+               }
+
+               .input-group input {
+                    width: 100%;
+                    padding: 12px 40px 12px 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 6px;
+                    font-size: 14px;
+                    outline: none;
+                    box-sizing: border-box;
+               }
+
+               .input-group input:focus {
+                    border-color: #4285f4;
+               }
+
+               .input-group .toggle-password {
+                    position: relative;
+                    float: right;
+                    margin-top: -34px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    color: #666;
+               }
+
+               .options {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+                    flex-wrap: wrap;
+               }
+
+               .options label {
+                    margin-bottom: 8px;
+               }
+
+               .options a {
+                    text-decoration: none;
+               }
+
+               .login-btn {
+                    width: 100%;
+                    padding: 12px;
+                    border: none;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff;
+                    background: var(--shadow);
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+               }
+
+               .login-btn:hover {
+                    background: rgb(3, 159, 153);
+                    transition: background 0.3s ease;
+               }
+
+               #info {
+                    color: red;
+               }
+
+               .container {
+                    width: 100svw;
+                    height: 100svh;
+                    background-color: transparent;
+                    backdrop-filter: blur(10px);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+               }
+
+               .spinner {
+                    width: 60px;
+                    height: 60px;
+                    border-top: 5px solid transparent;
+                    border-bottom: 5px solid var(--shadow);
+                    border-right: 5px solid var(--shadow);
+                    border-left: 5px solid var(--shadow);
+                    border-radius: 50px;
+                    animation: spin 2s ease-in-out infinite;
+               }
+
+               @keyframes spin {
+                    from {
+                         transform: rotate(0deg);
+                    }
+
+                    to {
+                         transform: rotate(360deg);
+                    }
+               }
+
+               @media (max-width: 480px) {
+                    .login-container {
+                         width: 100%;
+                         padding: 25px 20px;
+                    }
+
+                    .login-container h2 {
+                         font-size: 22px;
+                    }
+
+                    .login-container p {
+                         font-size: 13px;
+                    }
+
+                    .input-group input {
+                         font-size: 13px;
+                         padding: 10px 35px 10px 10px;
+                    }
+
+                    .login-btn {
+                         font-size: 14px;
+                         padding: 10px;
+                    }
+
+                    .options {
+                         flex-direction: row;
+                         align-items: flex-start;
+                    }
+
+                    .options a {
+                         margin-top: 8px;
+                    }
+               }
+          </style>
+     </head>
+
+     <body>
+          <div class="login-container">
+               <div class="icon">🔒</div>
+               <h2>Welcome Back</h2>
+               <p>Sign in to your account to continue</p>
+
+               <form onsubmit="handleSubmit(event)">
+                    <div class="input-group">
+                         <label>User Name</label>
+                         <input type="text" id="user-name" oninput="document.getElementById('info').textContent = ''" placeholder="Enter your User Name" autocorrect="off" spellcheck="false" autocomplete="off"
+                              autofocus required>
+                    </div>
+
+                    <div class="input-group">
+                         <label>Password</label>
+                         <input type="password" id="password" oninput="document.getElementById('info').textContent = ''" placeholder="Enter your password" required>
+                         <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                         <p id="info"></p>
+                    </div>
+
+                    <div class="options">
+                         <label><input type="checkbox" id="remember-me"> Remember me</label>
+                    </div>
+
+                    <button type="submit" class="login-btn">Sign In</button>
+               </form>
+          </div>
+
+          <div class="container" id="loading">
+               <div class="spinner"></div>
+          </div>
+
+          <script>
+               document.addEventListener('DOMContentLoaded', () => {
+                    let crediendials = localStorage.getItem('Crediendials');
+                    if (crediendials != null) {
+                         crediendials = JSON.parse(crediendials);
+                         document.getElementById("user-name").value = crediendials.username;
+                         document.getElementById("password").value = crediendials.password;
+                         document.getElementById("remember-me").checked = true;
+                    }
+               })
+
+               function togglePassword() {
+                    const password = document.getElementById("password");
+                    if (password.type === "password") {
+                         password.type = "text";
+                    } else {
+                         password.type = "password";
+                    }
+               }
+
+               function savePassword() {
+                    const username = document.getElementById("user-name").value;
+                    const password = document.getElementById("password").value;
+                    const checkBox = document.getElementById("remember-me");
+
+                    if (checkBox.checked == true) {
+                         let credientials = {
+                              username: username,
+                              password: password
+                         }
+                         localStorage.setItem('Crediendials' , JSON.stringify(credientials));
+                    } else {
+                         localStorage.clear();
+                    }
+
+               }
+
+               function alertInfo(invalid) {
+                    let info = document.getElementById('info');
+                    if (invalid) {
+                         info.textContent = 'Invalid username and password';
+                    }
+               }
+
+               async function handleSubmit(e) {
+                    e.preventDefault();
+                    let loading = document.getElementById('loading');
+                    loading.style.display = 'flex';
+                    savePassword();
+                    let credientials = {
+                         username: document.getElementById("user-name").value,
+                         password: document.getElementById("password").value
+                    }
+                    try {
+                         let req = await fetch('http://localhost:8080/user', {
+                              headers: {
+                                   'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify(credientials),
+                              method: 'POST'
+                         })
+                         let data = await req.json();
+
+                         if (!data.invalid) {
+                              let req = await fetch('http://localhost:8080/dashboard', {
+                                   headers: {
+                                        'Content-Type': 'application/json'
+                                   },
+                                   body:JSON.stringify({status:'ok'}),     
+                                   method: 'POST'
+                              })
+                              let html = await req.text();
+                              document.write(html);
+
+                         } else {
+                              document.getElementById("info").textContent = "Invalid username and password";
+                         }
+                         loading.style.display = 'none';
+                    } catch (err) {
+                         console.log(err)
+                    }
+               }
+          </script>
+     </body>
+
+</html>
