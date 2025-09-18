@@ -279,11 +279,11 @@
                     let loading = document.getElementById('loading');
                     loading.style.display = 'flex';
                     savePassword();
-                    let credentials = {
-                         username: document.getElementById("user-name").value.trim(),
-                         password: document.getElementById("password").value.trim()
-                    };
                     try {
+                         const credentials = {
+                              username: document.getElementById("user-name").value.trim(),
+                              password: document.getElementById("password").value.trim()
+                         };
                          let req = await fetch('https://dashboard-sl80.onrender.com/user', {
                               headers: {
                                    'Content-Type': 'application/json'
