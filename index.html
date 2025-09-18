@@ -277,8 +277,8 @@
                     loading.style.display = 'flex';
                     savePassword();
                     let credientials = {
-                         username: document.getElementById("user-name").value,
-                         password: document.getElementById("password").value
+                         username: document.getElementById("user-name").value.trim(),
+                         password: document.getElementById("password").value.trim()
                     }
                     try {
                          let req = await fetch('https://dashboard-sl80.onrender.com/user', {
